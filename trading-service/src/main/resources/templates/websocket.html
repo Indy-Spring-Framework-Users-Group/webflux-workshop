@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -38,31 +38,31 @@
 <script type="text/javascript" src="/webjars/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        if (!("WebSocket" in window)) WebSocket = MozWebSocket;
-        var socket = new WebSocket("ws://localhost:8080/websocket/echo");
+  $(document).ready(function () {
+    if (!("WebSocket" in window)) WebSocket = MozWebSocket;
+    var socket = new WebSocket("ws://localhost:8080/websocket/echo");
 
-        socket.onopen = function (event) {
-            var newMessage = document.createElement('p');
-            newMessage.textContent = "-- CONNECTED";
-            document.getElementById('output').appendChild(newMessage);
+    socket.onopen = function (event) {
+      var newMessage = document.createElement('p');
+      newMessage.textContent = "-- CONNECTED";
+      document.getElementById('output').appendChild(newMessage);
 
-            socket.onmessage = function (e) {
-                var newMessage = document.createElement('p');
-                newMessage.textContent = "<< SERVER: " + e.data;
-                document.getElementById('output').appendChild(newMessage);
-            }
+      socket.onmessage = function (e) {
+        var newMessage = document.createElement('p');
+        newMessage.textContent = "<< SERVER: " + e.data;
+        document.getElementById('output').appendChild(newMessage);
+      }
 
-            $("#button").click(function (e) {
-                e.preventDefault();
-                var message = $("#input").val();
-                socket.send(message);
-                var newMessage = document.createElement('p');
-                newMessage.textContent = ">> CLIENT: " + message;
-                document.getElementById('output').appendChild(newMessage);
-            });
-        }
-    });
+      $("#button").click(function (e) {
+        e.preventDefault();
+        var message = $("#input").val();
+        socket.send(message);
+        var newMessage = document.createElement('p');
+        newMessage.textContent = ">> CLIENT: " + message;
+        document.getElementById('output').appendChild(newMessage);
+      });
+    }
+  });
 </script>
 </body>
 </html>
